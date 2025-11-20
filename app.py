@@ -587,7 +587,7 @@ elif menu_choice=="📝 Maoni":
         """
         <div style='background: linear-gradient(135deg, rgba(46, 125, 50, 0.85), rgba(67, 160, 71, 0.85)), url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"); background-size: cover; background-position: center; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);'>
             <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>📝 Toa Maoni</h1>
-            <p style='color: white; font-size: 16px; margin: 10px 0 0 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Saidia tuwe nzuri — kamatia maoni yako</p>
+            <p style='color: white; font-size: 16px; margin: 10px 0 0 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Shiriki kutoa mrejesho</p>
         </div>
         """, unsafe_allow_html=True
     )
@@ -606,7 +606,7 @@ elif menu_choice=="📝 Maoni":
                 with st.expander(f"Mapendekezo ya {row['Lengo la Afya']} - {row['Tarehe ya Pendekezo']}"):
                     recommended_foods = row['Vyakula Vilivyopendekezwa'].split(',')
                     eaten_foods = st.multiselect("🥘 Vyakula Uliyokula", recommended_foods, key=f"eaten_{idx}")
-                    rating = st.selectbox("⭐ Kamatia Maendeleo (0=Sio Sahihi ... 4=Nzuri Sana)", [0,1,2,3,4], key=f"rating_{idx}")
+                    rating = st.selectbox("⭐ Toa ubora wa  maendeleo (0=Sio Sahihi ... 4=Nzuri Sana)", [0,1,2,3,4], key=f"rating_{idx}")
                     description = st.text_area("💬 Maelezo ya Maendeleo", key=f"desc_{idx}")
                     if st.button("✅ Tuma Maoni", key=f"submit_{idx}"):
                         if not eaten_foods:
@@ -673,3 +673,4 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.experimental_rerun()
+
