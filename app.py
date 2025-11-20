@@ -301,7 +301,7 @@ st.markdown(
 # -------------------------
 # MENU
 # -------------------------
-menu_options = ["📊 Nyumbani","📜 Historia Yangu","📝 Maoni","🚪 Ondoka"]
+menu_options = ["📊 Nyumbani","📜 Historia Yangu","📝 Mrejesho wa maendeleo baada ya kutumia vyakula siku 14","🚪 Ondoka"]
 menu_choice = st.sidebar.selectbox("📋 Menyu", menu_options)
 
 # Logout confirmation UI (triggered from sidebar or menu)
@@ -673,4 +673,5 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.experimental_rerun()
+
 
