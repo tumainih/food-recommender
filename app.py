@@ -582,11 +582,11 @@ elif menu_choice=="📜 Historia Yangu":
 # -------------------------
 # FEEDBACK
 # -------------------------
-elif menu_choice=="📝 Maoni":
+elif menu_choice=="📝 Mrejesho":
     st.markdown(
         """
         <div style='background: linear-gradient(135deg, rgba(46, 125, 50, 0.85), rgba(67, 160, 71, 0.85)), url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"); background-size: cover; background-position: center; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);'>
-            <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>📝 Toa Maoni</h1>
+            <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>📝 Toa Mrejesho</h1>
             <p style='color: white; font-size: 16px; margin: 10px 0 0 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Shiriki kutoa mrejesho</p>
         </div>
         """, unsafe_allow_html=True
@@ -597,11 +597,11 @@ elif menu_choice=="📝 Maoni":
         user_email = st.session_state["user"]
         # Filter eligible recommendations: date >= 14 days ago and foods_used is NA
         now = pd.Timestamp.now()
-        eligible = general_df[(general_df['Barua Pepe'] == user_email) & (pd.to_datetime(general_df['Tarehe ya Pendekezo'], errors='coerce') + pd.Timedelta(days=14) <= now) & general_df['Vyakula Vilivyotumika'].isna()]
+        eligible = general_df[(general_df['Barua Pepe'] == user_email) & (pd.to_datetime(general_df['Tarehe ya Pendekezo'], errors='coerce') + pd.Timedelta(minutes=1) <= now) & general_df['Vyakula Vilivyotumika'].isna()]
         if eligible.empty:
-            st.info("💡 Hakuna mapendekezo yanayostahili maoni kwa sasa.")
+            st.info("💡subiri siku 14 ziishe utoe mrejesho.")
         else:
-            st.markdown("<h3>🍽️ Chagua Mapendekezo ya Kutoa Maoni</h3>", unsafe_allow_html=True)
+            st.markdown("<h3>🍽️ Chagua Mapendekezo ya Kutoa Mrejesho</h3>", unsafe_allow_html=True)
             for idx, row in eligible.iterrows():
                 with st.expander(f"Mapendekezo ya {row['Lengo la Afya']} - {row['Tarehe ya Pendekezo']}"):
                     recommended_foods = row['Vyakula Vilivyopendekezwa'].split(',')
@@ -673,6 +673,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.experimental_rerun()
+
 
 
 
