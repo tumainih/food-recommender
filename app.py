@@ -104,6 +104,17 @@ users_df = ensure_csv(USERS_CSV, user_cols)
 general_cols = ["Barua Pepe", "Jina", "Jinsia", "Urefu", "Uzito", "BMI", "TDEE", "Lengo la Afya", "Vyakula Vilivyopendekezwa", "Vyakula Vilivyotumika", "Ukadiriaji wa Maendeleo ya Lengo", "Maelezo ya Maendeleo", "Tarehe ya Pendekezo", "ReminderSent"]
 general_df = ensure_csv(GENERAL_DATASET, general_cols)
 
+# Email reminders on app load
+now = pd.Timestamp.now()
+reminder_candidates = general_df[(pd.to_datetime(general_df['Tarehe ya Pendekezo'], errors='coerce') + pd.Timedelta(days=14) <= now) & general_df['Vyakula Vilivyotumika'].isna() & (general_df['ReminderSent'].isna() | (general_df['ReminderSent'] == False))]
+for idx, row in reminder_candidates.iterrows():
+    email = row['Barua Pepe']
+    subject = "Ukumbusho: Tafadhali toa mrejesho kwa mapendekezo yako ya vyakula"
+    body = f"Habari,\n\nTafadhali ingia kwenye app na toa mrejesho kwa mapendekezo uliyopata tarehe {row['Tarehe ya Pendekezo']}.\n\nAsante."
+    if send_email(email, subject, body):
+        general_df.at[idx, 'ReminderSent'] = True
+        save_csv(general_df, GENERAL_DATASET)
+
 # Ensure admin exists
 admin_email = "appsstudy767@gmail.com"
 admin_password = "3232Lhf@"
@@ -530,7 +541,7 @@ if menu_choice=="📊 Nyumbani":
                         "Maelezo ya Maendeleo": pd.NA,
                         "Tarehe ya Pendekezo": str(datetime.now())
                     }
-                    general_df =  pd.DataFrame([new_general_row])
+                    general_df = pd.concat([general_df, pd.DataFrame([new_general_row])], ignore_index=True)
                     save_csv(general_df, GENERAL_DATASET)
                     st.success(f"✅ Pendekezo limesave kwa lengo: {goal}")
 
@@ -574,6 +585,8 @@ elif menu_choice=="📜 Historia Yangu":
 
         user_history = general_df[general_df["Barua Pepe"]==user_email]
         if not user_history.empty:
+            # Sort by date descending to show most recent first
+            user_history = user_history.sort_values(by='Tarehe ya Pendekezo', ascending=False)
             st.markdown("<h3>🍽️ Vyakula Vya Hapo Awali</h3>", unsafe_allow_html=True)
             st.dataframe(user_history, use_container_width=True)
         else:
@@ -595,11 +608,11 @@ elif menu_choice=="📝 Mrejesho":
         st.warning("🔒 Tafadhali ingia kwanza!")
     else:
         user_email = st.session_state["user"]
-        # Filter eligible recommendations: date >= 14 days ago and foods_used is NA
+        # Filter eligible recommendations: date >= 1 minute ago and foods_used is NA
         now = pd.Timestamp.now()
         eligible = general_df[(general_df['Barua Pepe'] == user_email) & (pd.to_datetime(general_df['Tarehe ya Pendekezo'], errors='coerce') + pd.Timedelta(minutes=1) <= now) & general_df['Vyakula Vilivyotumika'].isna()]
         if eligible.empty:
-            st.info("💡subiri siku 14 ziishe utoe mrejesho.")
+            st.info("💡subiri dakika 1 ziishe utoe mrejesho.")
         else:
             st.markdown("<h3>🍽️ Chagua Mapendekezo ya Kutoa Mrejesho</h3>", unsafe_allow_html=True)
             for idx, row in eligible.iterrows():
@@ -673,7 +686,6 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
-
 
 
 
