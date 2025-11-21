@@ -313,13 +313,13 @@ if st.session_state.get("confirm_logout"):
         st.session_state['confirm_logout'] = False
         st.success("✅ Umeonekana vizuri!")
         try:
-            st.experimental_rerun()
+            st.rerun()
         except Exception:
             pass
     if col_no.button("❌ Ghairi", key="confirm_no"):
         st.session_state['confirm_logout'] = False
         try:
-            st.experimental_rerun()
+            st.rerun()
         except Exception:
             pass
 
@@ -333,7 +333,7 @@ if st.session_state.get("user"):
         if st.button("🚪 Ondoka", key="sidebar_logout"):
             st.session_state['confirm_logout'] = True
             try:
-                st.experimental_rerun()
+                st.rerun()
             except Exception:
                 pass
 
@@ -354,7 +354,7 @@ if not st.session_state["user"]:
                         st.session_state['user'] = login_email.strip().lower()
                         st.success("✅ Umeingia vizuri")
                         try:
-                            st.experimental_rerun()
+                            st.rerun()
                         except Exception:
                             pass
                     else:
@@ -617,7 +617,7 @@ elif menu_choice=="📝 Mrejesho":
                             general_df.at[idx, 'Maelezo ya Maendeleo'] = description
                             save_csv(general_df, GENERAL_DATASET)
                             st.success("✅ Maoni yamesave!")
-                            st.experimental_rerun()
+                            st.rerun()
 
 # -------------------------
 # LOGOUT
@@ -629,7 +629,7 @@ elif menu_choice=="🚪 Ondoka":
         # trigger the shared confirmation UI
         st.session_state['confirm_logout'] = True
         try:
-            st.experimental_rerun()
+            st.rerun()
         except Exception:
             pass
 
@@ -652,7 +652,7 @@ if st.session_state["user"]==admin_email:
             st.success("Users data saved successfully!")
             # Reload
             users_df = pd.read_csv(USERS_CSV)
-            st.experimental_rerun()
+            st.rerun()
 
     with st.sidebar.expander("📊 Manage General Data", expanded=False):
         st.markdown("### General Data")
@@ -662,7 +662,7 @@ if st.session_state["user"]==admin_email:
             st.success("General data saved successfully!")
             # Reload
             general_df = pd.read_csv(GENERAL_DATASET)
-            st.experimental_rerun()
+            st.rerun()
 
     with st.sidebar.expander("🥘 Manage Food Data", expanded=False):
         st.markdown("### Food Data (Caution: Main Dataset)")
@@ -672,7 +672,8 @@ if st.session_state["user"]==admin_email:
             st.success("Food data saved successfully!")
             # Reload
             food_df = pd.read_csv(DATA_CSV)
-            st.experimental_rerun()
+            st.rerun()
+
 
 
 
