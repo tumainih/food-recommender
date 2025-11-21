@@ -14,8 +14,8 @@ USERS_CSV = "users.csv"
 GENERAL_DATASET = "general_dataset.csv"
 
 # Prefer environment variables for credentials; fallback to hardcoded for compatibility
-EMAIL_SENDER = os.environ.get("FR_ADMIN_EMAIL", "hoseatumaini12@gmail.com")
-EMAIL_PASSWORD = os.environ.get("FR_ADMIN_PASSWORD", "3232Lhf$")
+EMAIL_SENDER = os.environ.get("FR_ADMIN_EMAIL", "appsstudy767@gmail.com")
+EMAIL_PASSWORD = os.environ.get("FR_ADMIN_PASSWORD", "3232Lhf@")
 
 # -------------------------
 # HELPER FUNCTIONS
@@ -673,6 +673,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.experimental_rerun()
+
 
 
 
