@@ -345,7 +345,7 @@ if not st.session_state["user"]:
         with tabs[0]:
             login_email = st.text_input("📧 Barua Pepe", key="login_email")
             login_password = st.text_input("🔐 Nenosiri", type="password", key="login_password")
-            if st.button("🔑 Ingia", use_container_width=True, key="btn_login"):
+            if st.button("🔑 Ingia", width=True, key="btn_login"):
                 if not login_email or not login_password:
                     st.error("❌ Tafadhali ingiza barua pepe na nenosiri")
                 else:
@@ -365,7 +365,7 @@ if not st.session_state["user"]:
             reg_name = st.text_input("👤 Jina", key="reg_name")
             reg_email = st.text_input("📧 Barua Pepe", key="reg_email")
             reg_password = st.text_input("🔐 Nenosiri", type="password", key="reg_password")
-            if st.button("✍️ Jisajili", use_container_width=True, key="btn_register"):
+            if st.button("✍️ Jisajili", width=True, key="btn_register"):
                 if not (reg_name and reg_email and reg_password):
                     st.error("❌ Tafadhali jaza sehemu zote")
                 elif reg_email.strip().lower() in users_df['email'].str.lower().values:
@@ -378,7 +378,7 @@ if not st.session_state["user"]:
                     st.session_state['user'] = reg_email.strip().lower()
                     st.success("✅ Umesajiliwa na kuingia vizuri")
                     try:
-                        st.experimental_rerun()
+                        st.rerun()
                     except Exception:
                         pass
 
@@ -673,6 +673,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.experimental_rerun()
+
 
 
 
