@@ -143,7 +143,7 @@ food_groups_sw = {
     "A2": "Vyakula vyenye asili ya nafaka",
     "B1": "Mizizi, Viazi na Ndizi",
     "B2": "Asili ya Mizizi, Viazi na Ndizi",
-    "C1": "Mahabage, Njugu, Mbegu",
+    "C1": "Maharage, Njugu, Mbegu",
     "C2": "Asili ya maharage na mbegu",
     "D1": "Nyama, Kuku, Samaki",
     "D2": "Asili ya wanyama/ndege",
@@ -313,7 +313,7 @@ st.markdown(
 # MENU
 # -------------------------
 menu_options = ["📊 Nyumbani","📜 Historia Yangu","📝 Mrejesho","🚪 Ondoka"]
-menu_choice = st.sidebar.selectbox("📋 Menyu", menu_options)
+menu_choice = st.sidebar.selectbox(" Menu/Maorodhesho", menu_options)
 
 # Logout confirmation UI (triggered from sidebar or menu)
 if st.session_state.get("confirm_logout"):
@@ -351,12 +351,12 @@ if st.session_state.get("user"):
 # Show login/register controls in the sidebar when no user is logged in
 if not st.session_state["user"]:
     with st.sidebar.expander("🔑 Ingia / ✍️ Jisajili", expanded=True):
-        tabs = st.tabs(["🔑 Ingia", "✍️ Jisajili"])
+        tabs = st.tabs(["🔑Ingia", "✍️ Jisajili"])
         # --- Login tab ---
         with tabs[0]:
             login_email = st.text_input("📧 Barua Pepe", key="login_email")
             login_password = st.text_input("🔐 Nenosiri", type="password", key="login_password")
-            if st.button("🔑 Ingia", key="btn_login"):
+            if st.button("🔑 Bonyeza kungia", key="btn_login"):
                 if not login_email or not login_password:
                     st.error("❌ Tafadhali ingiza barua pepe na nenosiri")
                 else:
@@ -400,9 +400,11 @@ if menu_choice=="📊 Nyumbani":
     if not st.session_state["user"]:
         st.markdown("""
         <div style='background: linear-gradient(135deg, rgba(46, 125, 50, 0.8), rgba(67, 160, 71, 0.8)), url("https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800"); background-size: cover; background-position: center; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.3);'>
-            <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🥗 Karibu — Mgeni</h1>
-            <p style='color: white; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Jaribu kama mgeni au jiandikishe ili uhifadhi mwanzo</p>
-        </div>
+            <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🥗 Karibu ndugu mgeni katika mfumo wa kupendekeza vyakula</h1>
+            <p style='color: white; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Mfumo huu unahitaji baadhi ya taarifa zako za mwili na lengo pendwa la afya yako, kisha utapata vyakula vyanye virutubisho husika kwa wingi kwa lengo hilo</p>
+            <p style='color: white; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Mfumo huu una malengo kumi ya kiafya, ambapo mapendekezo ya vyakula yameangalia kiasi cha virutubisho husika kwa ajili ya lengo na kuchukua  chakula chenye kiasi kingi </p>
+            <p style='color: white; font-size: 18px; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Tafadhali bonyeza alama hii >> iliyopo hapo juu, ili uweze kuona sehemu ya usajili na huduma zingine</p>
+            </div>
         """, unsafe_allow_html=True)
         # CSS for food card fade-in animation (dashboard decorations)
         st.markdown("""
@@ -412,23 +414,7 @@ if menu_choice=="📊 Nyumbani":
         .food-emoji{font-size:32px;margin-bottom:8px;display:block}
         </style>
         """, unsafe_allow_html=True)
-        with st.expander("🥘 Jaribu kama Mgeni — Pata Mapendekezo", expanded=True):
-            gw_weight = st.number_input("⚖️ Uzito(kg)",20.0,200.0,60.0, key="gw_weight")
-            gw_height_m = st.number_input("📏 Urefu (m)",1.0,2.5,1.7, key="gw_height")
-            gw_age = st.number_input("🎂 Umri",5,120,25, key="gw_age")
-            gw_sex_sw = st.selectbox("🚻 Jinsia",["M - Mwanaume","F - Mwanamke"], key="gw_sex")
-            gw_sex = gw_sex_sw[0]
-            gw_activity_sw = st.selectbox("🏃 Kiwango cha Shughuli",["hamna kazi","Kidogo","Kawaida","kazi ya wakati wote","kazi ngumu sana"], key="gw_activity")
-            activity_map = {"hamna kazi": "Sedentary", "Kidogo": "Light", "Kawaida": "Moderate", "kazi ya wakati wote": "Very Active", "kazi ngumu sana": "Extra Active"}
-            gw_activity = activity_map.get(gw_activity_sw, "Moderate")
-            gw_goal = st.selectbox("🎯 Lengo la Afya", health_goals, key="gw_goal")
-            gw_groups = st.multiselect("🥬 Makundi ya Vyakula", list(food_groups_sw.values()), key="gw_groups",placeholder='chagua kundi au makundi')
-            gw_top_n = st.number_input("🍽️ Idadi ya Vyakula",1,50,5, key="gw_topn")
-            guest_email = st.text_input("📧 Barua Pepe (kwa maandishi ya matokeo - kosa kwa skip)", key="guest_email")
-            send_by_email = st.checkbox("💌 Tuma matokeo kwa barua pepe", key="guest_send_email")
-            if st.button("🥑 Pata Mapendekezo (Mgeni)", use_container_width=True):
-                st.info("💡 Ili kupata mapendekezo, tafadhali ingia au jisajili kwanza ili kuhakikisha utendaji mzuri wa barua pepe.")
-        st.info("💡 Ili kuokoa mapendekezo yako, tafadhali jisajili au ingia akaunti yako.")
+        
     else:
         user_email = st.session_state["user"]
         user_row = users_df[users_df['email'].str.strip().str.lower()==user_email.strip().lower()]
@@ -436,21 +422,22 @@ if menu_choice=="📊 Nyumbani":
         st.markdown(
             f"""
             <div style='background: linear-gradient(135deg, rgba(46, 125, 50, 0.85), rgba(67, 160, 71, 0.85)), url("https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800"); background-size: cover; background-position: center; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);'>
-                <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🍽️ Karibu, {user_name}!</h1>
-                <p style='color: white; font-size: 16px; margin: 10px 0 0 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Tafuta vyakula vya kuwezesha malengo yako kiafya</p>
+                <h1 style='color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);'>🍽️ KARIBU,NDUGU {str.upper(user_name)}</h1>
+                <p style='color: white; font-size: 16px; margin: 10px 0 0 0; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);'>Tafadhali jaza taarifa zako ili upate mapendekezo ya vyakula</p>
             </div>
             """, unsafe_allow_html=True
         )
         # User Inputs
-        st.markdown("<h3>📋 Kujaza Taarifa Zako</h3>", unsafe_allow_html=True)
-        weight = st.number_input("⚖️ Uzani (kg)",20.0,200.0,60.0)
+        st.markdown("<h3>📋 Taarifa Zinazohitajika</h3>", unsafe_allow_html=True)
+        st.markdown("<h5>Taarifa Zinazoonekana si halisi,tafadhali weka taarifa zako</h5>", unsafe_allow_html=True)
+        weight = st.number_input("⚖️ Uzito (kg)",20.0,200.0,60.0)
         height_m = st.number_input("📏 Urefu (m)",1.0,2.5,1.7)
         age = st.number_input("🎂 Umri",5,120,25)
-        sex = st.selectbox("🚻 Jinsia",["M - Mume","F - Mwanamke"])
+        sex = st.selectbox("🚻 Jinsia",["Me","Ke"])
         activity = st.selectbox("🏃 Kiwango cha Shughuli",["hamna kazi","Kidogo","Kawaida","kazi ya wakati wote","kazi ngumu sana"])
         goal = st.selectbox("🎯 Lengo la Afya",health_goals)
-        groups_sw = st.multiselect("🥬 Vikundi vya Vyakula", list(food_groups_sw.values()))
-        top_n = st.number_input("🍽️ Idadi ya Vyakula",1,50,5)
+        groups_sw = st.multiselect("🥬 Makundi/Aina ya Vyakula", list(food_groups_sw.values()))
+        top_n = st.number_input("🍽️ Idadi ya vyakula kwa kila kundi ulilochagua",1,50,5)
 
         colors = {
             "A1":"#FFE0B2","A2":"#FFD180","B1":"#FFCC80","B2":"#FFB74D",
@@ -459,7 +446,7 @@ if menu_choice=="📊 Nyumbani":
             "F3":"#AED581","F4":"#9CCC65"
         }
 
-        if st.button("🥑 Pata Mapendekezo", use_container_width=True):
+        if st.button("🥑 Bonyeza hapa kupata vyakula pendekezwa kwa ajili yako", use_container_width=True):
             if not groups_sw:
                 st.warning("⚠️ Chagua angalau kikundi au vikundi vya vyakula!")
             else:
@@ -511,18 +498,7 @@ if menu_choice=="📊 Nyumbani":
                             "protein_g":protein,"fiber_g":fiber,"omega3_g":omega3,
                             "vitC_mg":vitc,"calories_kc":calories,"date":str(datetime.now())
                         })
-                        # Per-item send button (logged-in user)
-                        try:
-                            send_key = f"send_user_{goal}_{grp_key}_{i}"
-                            if st.session_state.get('user') and col.button("📤 Tuma hiki kifungo", key=send_key):
-                                subject = f"Mapendekezo: {food_name} - {goal}"
-                                body = f"Habari {user_name},\n\nHapa kuna pendekezo: {food_name}\nLengo: {goal}\nBMI: {bmi}\nBMR: {bmr}\nTDEE: {tdee}\n\nAsante."
-                                if send_email(user_email, subject, body):
-                                    st.success(f"📧 {food_name} imetumwa kwa {user_email}!")
-                                else:
-                                    st.error("❌ Barua pepe haijatumwa. Angalia mipangilio ya SMTP.")
-                        except Exception:
-                            pass
+                        
                 
                 if new_rows:
                     recommended_meals = ",".join([r["food"] for r in new_rows])
@@ -543,11 +519,12 @@ if menu_choice=="📊 Nyumbani":
                     }
                     general_df = pd.concat([general_df, pd.DataFrame([new_general_row])], ignore_index=True)
                     save_csv(general_df, GENERAL_DATASET)
-                    st.success(f"✅ Pendekezo limesave kwa lengo: {goal}")
+                    st.success(f"✅ Pendekezo limehifadhiwa kwa lengo: {goal}")
+                    st.success(f"Tafadhali tunaomba mrejesho wako baada ya siku 14 kuhusu {goal}")
 
                     # Allow immediate forwarding of recommendations to user's email
                     foods_text = "\n".join([r["food"] for r in new_rows])
-                    if st.button("📤 Tuma Sasa kwa Barua Pepe", key=f"send_now_{goal}"):
+                    if st.button("📤 Tuma mapendekezo haya kwenda Barua Pepe yako", key=f"send_now_{goal}"):
                         if send_email(user_email,f"Mapendekezo ya Vyakula ({goal})",foods_text):
                             st.success("📧 Barua pepe imetumwa vizuri!")
                         else:
@@ -686,7 +663,6 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
-
 
 
 
