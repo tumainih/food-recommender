@@ -285,7 +285,7 @@ div[class*="stMultiSelect"] label {
     padding: 5px;
 }
 .stTabs [data-baseweb="tab"] {
-    color: #2e7d32;
+    color: white;
     font-weight: bold;
 }
 .stTabs [data-baseweb="tab"][aria-selected="true"] {
@@ -666,6 +666,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
