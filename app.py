@@ -235,16 +235,12 @@ if "confirm_logout" not in st.session_state:
 
 st.markdown("""
 <style>
-/* -------------------------
-   Background
-------------------------- */
+/* Background */
 body, .stApp {
     background: linear-gradient(135deg, rgba(232,245,233,0.9) 0%, rgba(200,230,201,0.9) 100%);
 }
 
-/* -------------------------
-   Buttons
-------------------------- */
+/* Buttons */
 .stButton > button {
     background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
     color: white;
@@ -261,31 +257,28 @@ body, .stApp {
     box-shadow: 0 6px 16px rgba(46, 125, 50, 0.5);
 }
 
-/* -------------------------
-   Inputs and selects
-------------------------- */
+/* Inputs and selects */
 .stTextInput > div > div > input,
 .stNumberInput > div > div > input,
 .stSelectbox > div > div > div > select {
     height: 2.5em;
     border-radius: 10px;
     border: 2px solid #2e7d32 !important;
-    background-color: rgba(255,255,255,0.1) !important; /* semi-transparent */
+    background-color: rgba(255,255,255,0.1) !important;
     color: inherit !important;
     padding: 8px !important;
 }
 
-/* -------------------------
-   Input Labels (fix for dark mode)
-------------------------- */
-label[data-baseweb="label"] {
-    color: #2e7d32 !important;  /* green labels visible in dark mode */
+/* Input labels (works in dark mode for all inputs) */
+div[class*="stTextInput"] label,
+div[class*="stNumberInput"] label,
+div[class*="stSelectbox"] label,
+div[class*="stMultiSelect"] label {
+    color: #2e7d32 !important; /* green visible in dark mode */
     font-weight: bold;
 }
 
-/* -------------------------
-   Tabs
-------------------------- */
+/* Tabs */
 .stTabs [data-baseweb="tab-list"] {
     background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%);
     border-radius: 12px;
@@ -300,50 +293,24 @@ label[data-baseweb="label"] {
     color: #2e7d32;
 }
 
-/* -------------------------
-   Expander
-------------------------- */
+/* Expander */
 .stExpander {
     background: rgba(255,255,255,0.1);
     border: 2px solid #43a047;
     border-radius: 10px;
 }
 
-/* -------------------------
-   Alerts
-------------------------- */
-.stWarning {
-    background: rgba(255,248,220,0.4) !important;
-    border-left: 5px solid #ff6f61;
-}
-.stSuccess {
-    background: rgba(212,237,218,0.4) !important;
-    border-left: 5px solid #28a745;
-}
-.stInfo {
-    background: rgba(209,236,241,0.4) !important;
-    border-left: 5px solid #17a2b8;
-}
-.stError {
-    background: rgba(248,215,218,0.4) !important;
-    border-left: 5px solid #dc3545;
-}
+/* Alerts */
+.stWarning {background: rgba(255,248,220,0.4) !important; border-left: 5px solid #ff6f61;}
+.stSuccess {background: rgba(212,237,218,0.4) !important; border-left: 5px solid #28a745;}
+.stInfo {background: rgba(209,236,241,0.4) !important; border-left: 5px solid #17a2b8;}
+.stError {background: rgba(248,215,218,0.4) !important; border-left: 5px solid #dc3545;}
 
-/* -------------------------
-   Checkbox
-------------------------- */
-.stCheckbox > label {
-    color: #2e7d32;
-    font-weight: bold;
-}
+/* Checkbox */
+.stCheckbox > label {color: #2e7d32; font-weight: bold;}
 
-/* -------------------------
-   Headers
-------------------------- */
-h1, h2, h3 {
-    color: #2e7d32 !important;
-    font-weight: bold;
-}
+/* Headers */
+h1, h2, h3 {color: #2e7d32 !important; font-weight: bold;}
 </style>
 """, unsafe_allow_html=True)
 # MENU
@@ -699,6 +666,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
