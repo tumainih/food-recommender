@@ -431,8 +431,8 @@ if menu_choice=="📊 Nyumbani":
             """, unsafe_allow_html=True
         )
         # User Inputs
-        st.markdown("<h3>📋 Taarifa Zinazohitajika</h3>", unsafe_allow_html=True)
-        st.markdown("<h5>Taarifa Zinazoonekana si halisi,tafadhali weka taarifa zako</h5>", unsafe_allow_html=True)
+       
+        st.markdown("<h3>Taarifa Zinazoonekana si halisi,tafadhali weka taarifa zako</h3>", unsafe_allow_html=True)
         weight = st.number_input("⚖️ Uzito (kg)",20.0,200.0,60.0)
         height_m = st.number_input("📏 Urefu (m)",1.0,2.5,1.7)
         age = st.number_input("🎂 Umri",5,120,25)
@@ -666,6 +666,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
