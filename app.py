@@ -234,81 +234,76 @@ if "confirm_logout" not in st.session_state:
     st.session_state["confirm_logout"] = False
 
 # -------------------------
-# CSS STYLING - Food Themed with Greenish Colors
-# -------------------------
-st.markdown(
-    """
-    <style>
-    body {background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);}
-    .stApp {background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);}
-    .stButton>button {
-        background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
-        color: white;
-        height: 3em;
-        width: 100%;
-        border-radius: 15px;
-        border: none;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
-        transition: all 0.3s ease;
-    }
-    .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(46, 125, 50, 0.5);
-    }
-    .stTextInput>div>div>input, .stNumberInput>div>div>input {
-        height: 2.5em;
-        border-radius: 10px;
-        border: 2px solid #2e7d32 !important;
-        background-color: #f1f8e9 !important;
-        padding: 8px !important;
-    }
-    .stSelectbox>div>div>div>select {
-        height: 2.5em;
-        border-radius: 10px;
-        border: 2px solid #2e7d32 !important;
-        background-color: #f1f8e9 !important;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%);
-        border-radius: 12px;
-        padding: 5px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        color: white;
-        font-weight: bold;
-    }
-    .stTabs [data-baseweb="tab"][aria-selected="true"] {
-        background: #e8f5e9;
-        color: #2e7d32;
-    }
-    .stExpander {
-        background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e9 100%);
-        border: 2px solid #43a047;
-        border-radius: 10px;
-    }
-    .stWarning {
-        background: linear-gradient(135deg, #fff8dc 0%, #ffeaa7 100%) !important;
-        border-left: 5px solid #ff6f61;
-    }
-    .stSuccess {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
-        border-left: 5px solid #28a745;
-    }
-    .stInfo {
-        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
-        border-left: 5px solid #17a2b8;
-    }
-    .stError {
-        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
-        border-left: 5px solid #dc3545;
-    }
-    .stCheckbox>label {color: #2e7d32; font-weight: bold;}
-    h1, h2, h3 {color: #1b5e20 !important; font-weight: bold;}
-    </style>
-    """, unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+/* Background */
+body, .stApp {
+    background: linear-gradient(135deg, rgba(232,245,233,0.9) 0%, rgba(200,230,201,0.9) 100%);
+}
 
+/* Buttons */
+.stButton>button {
+    background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%);
+    color: white;
+    height: 3em;
+    width: 100%;
+    border-radius: 15px;
+    border: none;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    transition: all 0.3s ease;
+}
+.stButton>button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.5);
+}
+
+/* Inputs and selects */
+.stTextInput>div>div>input, .stNumberInput>div>div>input,
+.stSelectbox>div>div>div>select {
+    height: 2.5em;
+    border-radius: 10px;
+    border: 2px solid #2e7d32 !important;
+    background-color: rgba(255,255,255,0.1) !important; /* semi-transparent */
+    color: inherit !important;
+    padding: 8px !important;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%);
+    border-radius: 12px;
+    padding: 5px;
+}
+.stTabs [data-baseweb="tab"] {
+    color: white;
+    font-weight: bold;
+}
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    background: rgba(255,255,255,0.2);
+    color: #2e7d32;
+}
+
+/* Expander */
+.stExpander {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid #43a047;
+    border-radius: 10px;
+}
+
+/* Alerts */
+.stWarning {background: rgba(255,248,220,0.4) !important; border-left: 5px solid #ff6f61;}
+.stSuccess {background: rgba(212,237,218,0.4) !important; border-left: 5px solid #28a745;}
+.stInfo {background: rgba(209,236,241,0.4) !important; border-left: 5px solid #17a2b8;}
+.stError {background: rgba(248,215,218,0.4) !important; border-left: 5px solid #dc3545;}
+
+/* Checkbox */
+.stCheckbox>label {color: #2e7d32; font-weight: bold;}
+
+/* Headers */
+h1, h2, h3 {color: #2e7d32 !important; font-weight: bold;}
+</style>
+""", unsafe_allow_html=True)
 # -------------------------
 # MENU
 # -------------------------
@@ -663,6 +658,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
