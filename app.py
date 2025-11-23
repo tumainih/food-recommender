@@ -101,7 +101,7 @@ users_df = ensure_csv(USERS_CSV, user_cols)
 # -------------------------
 # LOAD GENERAL DATASET
 # -------------------------
-general_cols = ["Barua Pepe", "Jina", "Jinsia", "Urefu", "Uzito", "BMI", "TDEE", "Lengo la Afya", "Vyakula Vilivyopendekezwa", "Vyakula Vilivyotumika", "Ukadiriaji wa Maendeleo ya Lengo", "Maelezo ya Maendeleo", "Tarehe ya Pendekezo", "ReminderSent"]
+general_cols = ["Barua Pepe", "Jina", "Jinsia", "Urefu", "Uzito", "BMI", "TDEE", "Lengo la Afya", "Vyakula Vilivyopendekezwa", "Vyakula Vilivyotumika", "Ukadiriaji wa Maendeleo ya Lengo", "Maelezo ya Maendeleo (waweza kuelezea mabadiliko ya vipimo au hali ya mwili)", "Tarehe ya Pendekezo", "ReminderSent"]
 general_df = ensure_csv(GENERAL_DATASET, general_cols)
 
 # Email reminders on app load
@@ -663,6 +663,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
