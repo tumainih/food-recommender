@@ -517,7 +517,7 @@ if menu_choice=="📊 Nyumbani":
                         "Vyakula Vilivyopendekezwa": recommended_meals,
                         "Vyakula Vilivyotumika": pd.NA,
                         "Ukadiriaji wa Maendeleo ya Lengo": pd.NA,
-                        "Maelezo ya Maendeleo": pd.NA,
+                        "Maelezo ya Maendeleo (waweza kuelezea mabadiliko ya vipimo au hali ya mwili)": pd.NA,
                         "Tarehe ya Pendekezo": str(datetime.now())
                     }
                     general_df = pd.concat([general_df, pd.DataFrame([new_general_row])], ignore_index=True)
@@ -601,14 +601,14 @@ elif menu_choice=="📝 Mrejesho":
                     recommended_foods = row['Vyakula Vilivyopendekezwa'].split(',')
                     eaten_foods = st.multiselect("🥘 Vyakula Uliyokula", recommended_foods, key=f"eaten_{idx}")
                     rating = st.selectbox("⭐ Toa ubora wa  maendeleo (0=Sio Sahihi ... 4=Nzuri Sana)", [0,1,2,3,4], key=f"rating_{idx}")
-                    description = st.text_area("💬 Maelezo ya Maendeleo", key=f"desc_{idx}")
+                    description = st.text_area("💬Maelezo ya Maendeleo (waweza kuelezea mabadiliko ya vipimo au hali ya mwili)", key=f"desc_{idx}")
                     if st.button("✅ Tuma Maoni", key=f"submit_{idx}"):
                         if not eaten_foods:
                             st.warning("⚠️ Chagua angalau chakula kimoja ulichokula!")
                         else:
                             general_df.at[idx, 'Vyakula Vilivyotumika'] = ','.join(eaten_foods)
                             general_df.at[idx, 'Ukadiriaji wa Maendeleo ya Lengo'] = rating
-                            general_df.at[idx, 'Maelezo ya Maendeleo'] = description
+                            general_df.at[idx, 'Maelezo ya Maendeleo (waweza kuelezea mabadiliko ya vipimo au hali ya mwili)'] = description
                             save_csv(general_df, GENERAL_DATASET)
                             st.success("✅ Maoni yamesave!")
                             st.rerun()
@@ -667,6 +667,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
