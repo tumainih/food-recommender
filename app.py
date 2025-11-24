@@ -592,7 +592,8 @@ elif menu_choice=="📝 Mrejesho":
         now = pd.Timestamp.now()
         eligible = general_df[(general_df['Barua Pepe'] == user_email) & (pd.to_datetime(general_df['Tarehe ya Pendekezo'], errors='coerce') + pd.Timedelta(minutes=1) <= now) & general_df['Vyakula Vilivyotumika'].isna()]
         if eligible.empty:
-            st.info("💡Tembelea tena kutoa mrejesho baada ya muda unaona mabadiliko.")
+            st.info("💡Tembelea tena kutoa mrejesho baada ya kutumia vyakula pendekezwa na utakapoona mabadiliko.")
+            st.info("Tunashauri utoe mrejesho baada ya siku 14.")
         else:
             st.markdown("<h3>🍽️ Chagua Mapendekezo ya Kutoa Mrejesho</h3>", unsafe_allow_html=True)
             for idx, row in eligible.iterrows():
@@ -666,6 +667,7 @@ if st.session_state["user"]==admin_email:
             # Reload
             food_df = pd.read_csv(DATA_CSV)
             st.rerun()
+
 
 
 
